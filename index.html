@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CryptoPenny</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="shortcut icon" href="assets/favicon.png">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://authedmine.com/lib/authedmine.min.js"></script>
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="js/vue.js"></script>
+    <script src="js/script.js"></script>
+
+    <div class="container-fluid" id="main">
+
+
+    <div class="jumbotron">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm">
+                    <h1 class="display-3">CryptoPenny</h1>
+                    <p class="lead">Cryptocurrency Exchange Tracker & Miner</p>
+                </div>
+                <div class="col-sm">
+                    <h3 class="display-5">Monero Miner</h3>
+                    <p>
+                        <a class="btn btn-success" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            What's this?
+                        </a>
+
+                    </p>
+                    <div class="collapse" id="collapseExample">
+                      <div class="card card-body">
+                        This site is currently mining the cryptocurrency Monero using a portion of your CPU. See statistics below.
+                      </div>
+                    </div>
+                    <p>Hashes per second: {{ rate }}<br>
+                       Total Hashes: {{ total }}<br>
+                       Total Monero: {{ monero }} XMR</p>
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-4">
+        <p>Select Currency</p>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary" @click="init('₿','BTC')">BTC (₿)</button>
+            <button type="button" class="btn btn-primary" @click="init('$','USD')">USD ($)</button>
+            <button type="button" class="btn btn-primary" @click="init('€','EUR')">EUR (€)</button>
+            <button type="button" class="btn btn-primary" @click="init('£','GBP')">GBP (£)</button>
+            <div class="btn-group" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Other
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    <a class="dropdown-item" href="#" @click="init('A$','AUD')">AUD ($)</a>
+                    <a class="dropdown-item" href="#" @click="init('C$','CAD')">CAD ($)</a>
+                    <a class="dropdown-item" href="#" @click="init('CN¥','CNY')">CNY (¥)</a>
+                    <a class="dropdown-item" href="#" @click="init('HK$','HKD')">HKD ($)</a>
+                    <a class="dropdown-item" href="#" @click="init('¥','JPY')">JPY (¥)</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2>Top 10</h2>
+    <div class="card-deck">
+        <div class="card bg-light" style="width: 20rem;">
+            <img class="card-img-top" src="https://bitcoin.org/img/icons/opengraph.png" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title">Bitcoin</h4>
+                <h6 class="card-subtitle mb-2 text-muted">BTC (1)</h6>
+                <p class="card-text" id="price">{{ BTC }}</p>
+            </div>
+        </div>
+        <div class="card bg-light" style="width: 20rem;">
+            <img class="card-img-top" src="http://bitcoinist.com/wp-content/themes/bitcoinist/img/ETHEREUM-LOGO-2.png" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title">Ethereum</h4>
+                <h6 class="card-subtitle mb-2 text-muted">ETH (2)</h6>
+                <p class="card-text">{{ ETH }}</p>  
+            </div>
+        </div>
+        <div class="card bg-light" style="width: 20rem;">
+            <img class="card-img-top" src="https://bitcoin.org/img/icons/opengraph.png" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title">Bitcoin Cash</h4>
+                <h6 class="card-subtitle mb-2 text-muted">BCH (3)</h6>
+                <p class="card-text">{{ BCH }}</p>  
+            </div>
+        </div>
+        <div class="card bg-light" style="width: 20rem;">
+            <img class="card-img-top" src="https://cdn.coinranking.com/Bkuz9Hd_-/xrp.svg" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title">Ripple</h4>
+                <h6 class="card-subtitle mb-2 text-muted">XRP (4)</h6>
+                <p class="card-text">{{ XRP }}</p>  
+            </div>
+        </div>
+        <div class="card bg-light" style="width: 20rem;">
+            <img class="card-img-top" src="https://litecoin.org/img/litecoin.svg" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title">Litecoin</h4>
+                <h6 class="card-subtitle mb-2 text-muted">LTC (5)</h6>
+                <p class="card-text">{{ LTC }}</p>  
+            </div>
+        </div>
+    </div>
+    <!--end of card deck 1-->
+    <br>
+    <div class="card-deck">
+        <div class="card bg-light" style="width: 20rem;">
+            <img class="card-img-top" src="https://bittrexblobstorage.blob.core.windows.net/public/49993d38-d344-4197-b449-c50c3cc13d47.png" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title">Dash</h4>
+                <h6 class="card-subtitle mb-2 text-muted">DASH (6)</h6>
+                <p class="card-text" id="price">{{ DASH }} </p>
+            </div>
+        </div>
+        <div class="card bg-light" style="width: 20rem;">
+            <img class="card-img-top" src="http://files.coinmarketcap.com.s3-website-us-east-1.amazonaws.com/static/img/coins/200x200/neo.png" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title">NEO</h4>
+                <h6 class="card-subtitle mb-2 text-muted">NEO (7)</h6>
+                <p class="card-text">{{ NEO }}</p>  
+            </div>
+        </div>
+        <div class="card bg-light" style="width: 20rem;">
+            <img class="card-img-top" src="http://files.coinmarketcap.com.s3-website-us-east-1.amazonaws.com/static/img/coins/200x200/nem.png" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title">NEM</h4>
+                <h6 class="card-subtitle mb-2 text-muted">XEM (8)</h6>
+                <p class="card-text">{{ XEM }}</p>  
+            </div>
+        </div>
+        <div class="card bg-light" style="width: 20rem;">
+            <img class="card-img-top" src="http://files.coinmarketcap.com.s3-website-us-east-1.amazonaws.com/static/img/coins/200x200/monero.png" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title">Monero</h4>
+                <h6 class="card-subtitle mb-2 text-muted">XMR (9)</h6>
+                <p class="card-text">{{ XMR }}</p>  
+            </div>
+        </div>
+        <div class="card bg-light" style="width: 20rem;">
+            <img class="card-img-top" src="http://files.coinmarketcap.com.s3-website-us-east-1.amazonaws.com/static/img/coins/200x200/ethereum-classic.png" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title">Ethereum Classic</h4>
+                <h6 class="card-subtitle mb-2 text-muted">ETC (10)</h6>
+                <p class="card-text">{{ ETC }}</p>  
+            </div>
+        </div>
+    </div> <!--end of card deck 2-->
+    <br>
+    <h2>CryptoMemes</h2>
+    <div class="card-deck">
+        <div class="card bg-light" style="width: 20rem;">
+            <img class="card-img-top" src="http://dogecoin.com/imgs/dogecoin-300.png" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title">Dogecoin</h4>
+                <h6 class="card-subtitle mb-2 text-muted">DOGE ({{ DOGErank }})</h6>
+                <p class="card-text" id="price">{{ DOGE }} </p>
+            </div>
+        </div>
+        <div class="card bg-light" style="width: 20rem;">
+            <img class="card-img-top" src="http://files.coinmarketcap.com.s3-website-us-east-1.amazonaws.com/static/img/coins/200x200/pepe-cash.png" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title">Pepe Cash</h4>
+                <h6 class="card-subtitle mb-2 text-muted">PEPECASH ({{ PEPECASHrank }})</h6>
+                <p class="card-text">{{ PEPECASH }}</p>  
+            </div>
+        </div>
+        <div class="card bg-light" style="width: 20rem;">
+            <img class="card-img-top" src="http://files.coinmarketcap.com.s3-website-us-east-1.amazonaws.com/static/img/coins/200x200/dopecoin.png" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title">DopeCoin</h4>
+                <h6 class="card-subtitle mb-2 text-muted">DOPE ({{ DOPErank }})</h6>
+                <p class="card-text">{{ DOPE }}</p>  
+            </div>
+        </div>
+        <div class="card bg-light" style="width: 20rem;">
+            <img class="card-img-top" src="http://files.coinmarketcap.com.s3-website-us-east-1.amazonaws.com/static/img/coins/200x200/mao-zedong.png" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title">Mao Zedong</h4>
+                <h6 class="card-subtitle mb-2 text-muted">MAO ({{ MAOrank }})</h6>
+                <p class="card-text">{{ MAO }}</p>  
+            </div>
+        </div>
+        <div class="card bg-light" style="width: 20rem;">
+            <img class="card-img-top" src="http://files.coinmarketcap.com.s3-website-us-east-1.amazonaws.com/static/img/coins/200x200/nyancoin.png" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title">Nyancoin</h4>
+                <h6 class="card-subtitle mb-2 text-muted">NYAN ({{ NYANrank }})</h6>
+                <p class="card-text">{{ NYAN }}</p>  
+            </div>
+        </div>
+    </div> <!--end of card deck 3-->
+
+
+    <br><br>
+    <p>Created by Chris Shen on 11.5.17</p>
+    <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+    </div><!--end of all-->
+
+</body>
+
+</html>
